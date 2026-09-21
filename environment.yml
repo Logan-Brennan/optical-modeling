@@ -1,0 +1,11 @@
+name: optical-modeling
+channels:
+  - defaults
+dependencies:
+  - python=3.14
+  - pandas
+  - matplotlib
+  - scipy
+  - ipykernel
+  - numpy
+prefix: /opt/miniconda3/envs/optical-modeling

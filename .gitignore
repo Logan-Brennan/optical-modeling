@@ -9,3 +9,7 @@ venv/
 .ipynb_checkpoints/
 
 .vscode/
+
+local_notes/
+
+examples/test.ipynb

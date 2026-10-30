@@ -13,6 +13,31 @@ step_nm = 1
 # End of user inputs
 #-------------------
 
+def prepare_optical_data(data, wavelength_grid):
+    """
+    Standardize optical-constant data with columns:
+    'en' (energy in eV), 'n', and 'k'
+    """
+    energy_ev = data["en"].to_numpy()
+    n = data["n"].to_numpy()
+    k = data["k"].to_numpy()
+
+    wavelength_nm = energy_to_wavelength(energy_ev)
+
+    wavelength_nm, n, k = sort_spectrum(
+        wavelength_nm,
+        n,
+        k,
+    )
+
+    n_interp, k_interp = interpolate_spectrum(
+        wavelength_nm,
+        n,
+        k,
+        wavelength_grid,
+    )
+
+    return n_interp, k_interp
 
 def energy_to_wavelength(energy_ev):
     """
@@ -65,7 +90,7 @@ def make_wavelength_grid(start_nm, end_nm, step_nm):
 
     start_nm = float(start_nm)
     end_nm = float(end_nm)
-    step_nm = float(end_nm)
+    step_nm = float(step_nm)
 
     if start_nm <= 0 or end_nm <0:
         raise ValueError("Wavelengths must be greater than zero")
@@ -76,7 +101,7 @@ def make_wavelength_grid(start_nm, end_nm, step_nm):
     if step_nm <= 0:
         raise ValueError("step_nm must be greater than zero")
 
-    wavelength_grid = np.arrage(start_nm, end_nm, step_nm)
+    wavelength_grid = np.arange(start_nm, end_nm + step_nm, step_nm)
 
     return wavelength_grid
 

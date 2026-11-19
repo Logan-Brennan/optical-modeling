@@ -9,3 +9,6 @@ dependencies:
   - ipykernel
   - numpy
   - openpyxl
+  - pip
+  - pip:
+      - tmm==0.2.0
